@@ -14,7 +14,7 @@ export default {
   author: {
     email: "mubaidr@gmail.com",
   },
-  name: env.mode === "staging" ? `[INTERNAL] ${name}` : displayName || name,
+  name: env.NODE_ENV === "development" ? `[DEV] ${name}` : displayName || name,
   description,
   // up to four numbers separated by dots
   version: `${major}.${minor}.${patch}.${label}`,
