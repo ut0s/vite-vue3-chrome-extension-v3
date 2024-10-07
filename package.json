@@ -60,12 +60,10 @@
     "url": "https://github.com/mubaidr/vite-vue3-browser-extension-v3"
   },
   "scripts": {
-    "build": "npm run build:chrome && npm run build:firefox",
-    "build:chrome": "cross-env NODE_ENV=production vite build -c vite.chrome.config.ts",
-    "build:firefox": "cross-env NODE_ENV=production vite build -c vite.firefox.config.ts",
-    "dev": "concurrently \"npm run dev:chrome\" \"npm run dev:firefox\"",
-    "dev:chrome": "cross-env NODE_ENV=development vite -c vite.chrome.config.ts",
-    "dev:firefox": "cross-env NODE_ENV=development vite build --mode development --watch -c vite.firefox.config.ts",
+    "build": "npm run build:chrome",
+    "build:chrome": "vite build -c vite.chrome.config.ts",
+    "dev": "npm run dev:chrome",
+    "dev:chrome": "vite -c vite.chrome.config.ts",
     "format": "prettier --write .",
     "launch": "tsx scripts/launch.ts",
     "launch:all": "tsx scripts/launch.ts --all",
