@@ -10,12 +10,10 @@
     "url": "https://github.com/mubaidr/vite-vue3-chrome-extension-v3"
   },
   "scripts": {
-    "build": "npm run build:chrome && npm run build:firefox",
+    "build": "npm run build:chrome",
     "build:chrome": "vite build -c vite.chrome.config.ts",
-    "build:firefox": "vite build -c vite.firefox.config.ts",
-    "dev": "concurrently \"npm run dev:chrome\" \"npm run dev:firefox\"",
+    "dev": "npm run dev:chrome",
     "dev:chrome": "vite -c vite.chrome.config.ts",
-    "dev:firefox": "vite build --mode development --watch -c vite.firefox.config.ts",
     "format": "prettier --write .",
     "lint": "eslint . --fix",
     "lint:manifest": "web-ext lint --pretty",
