@@ -100,9 +100,6 @@ function getCommand(name: string, type: string, path: string) {
       if (type === 'chrome') {
         return `web-ext run --target chromium --chromium-binary ${path} --source-dir dist/chrome --no-input --browser-console --devtools`
       }
-      if (type === 'firefox') {
-        return `web-ext run --firefox=${path} --source-dir dist/firefox --no-input --browser-console --devtools`
-      }
       break
 
     default:
