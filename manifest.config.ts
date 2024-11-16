@@ -40,9 +40,12 @@ export default {
   // options_ui: {
   //   page: 'src/options/index.html',
   // },
+  side_panel: {
+    default_path: 'src/sidepanel/index.html',
+  },
   offline_enabled: true,
   // host_permissions: [],
-  permissions: ['storage', 'tabs', 'background'],
+  permissions: ['storage', 'tabs', 'background', 'sidePanel'],
   web_accessible_resources: [
     {
       matches: ['*://*/*'],

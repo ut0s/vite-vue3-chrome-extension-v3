@@ -60,6 +60,10 @@ export default defineConfig({
           dir: 'src/content-script/iframe/pages',
           baseRoute: 'iframe',
         },
+        {
+          dir: 'src/sidepanel/pages',
+          baseRoute: 'sidepanel',
+        },
       ],
     }),
 
@@ -123,6 +127,7 @@ export default defineConfig({
         popup: 'src/popup/index.html',
         setup: 'src/setup/index.html',
         options: 'src/options/index.html',
+        sidepanel: 'src/sidepanel/index.html',
       },
     },
   },
