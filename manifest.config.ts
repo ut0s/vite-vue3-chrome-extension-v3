@@ -38,7 +38,7 @@ export default {
     },
   ],
   side_panel: {
-    default_path: "src/ui/side-panel/index.html",
+    default_path: "src/ui/sidepanel/index.html",
   },
   devtools_page: "src/devtools/index.html",
   options_page: "src/ui/options-page/index.html",
