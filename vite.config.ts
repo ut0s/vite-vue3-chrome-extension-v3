@@ -183,6 +183,13 @@ export default defineConfig({
     outDir: "dist",
     sourcemap: false,
     write: true,
+    minify: "terser",
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
     rollupOptions: {
       // ui or pages that are not specified in manifest file need to be specified here
       input: {
