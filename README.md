@@ -1,4 +1,3 @@
-
 # vite-vue3-browser-extension-v3
 
 [![build](https://github.com/mubaidr/vite-vue3-browser-extension-v3/actions/workflows/build.yml/badge.svg)](https://github.com/mubaidr/vite-vue3-browser-extension-v3/actions/workflows/build.yml)
@@ -102,31 +101,29 @@ _Please create an issue if you feel some feature is missing or could be improved
 ### `useBrowserStorage`
 
 ```ts
-
 // Example usage
 const exampleUsage = () => {
   // Using sync storage
-  const { data: syncSettings } = useBrowserSyncStorage('settings', {
-    theme: 'dark',
+  const { data: syncSettings } = useBrowserSyncStorage("settings", {
+    theme: "dark",
     notifications: true,
     preferences: {
-      language: 'en',
-      fontSize: 14
-    }
+      language: "en",
+      fontSize: 14,
+    },
   })
 
   // Using local storage
-  const { data: userProfile } = useBrowserLocalStorage('profile', {
-    name: 'John Doe',
+  const { data: userProfile } = useBrowserLocalStorage("profile", {
+    name: "John Doe",
     lastLogin: null,
-    favorites: ['item1', 'item2']
+    favorites: ["item1", "item2"],
   })
 
   // The data ref can be used directly in templates or watched
   console.log(syncSettings.value.theme) // 'dark'
   console.log(userProfile.value.name) // 'John Doe'
 }
-
 ```
 
 ## Development tools

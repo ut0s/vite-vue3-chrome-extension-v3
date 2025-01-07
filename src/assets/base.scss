@@ -1,5 +1,5 @@
 // required for vue-devtools
-@use '/node_modules/vite-plugin-vue-devtools/src/overlay/devtools-overlay.css';
+@use "/node_modules/vite-plugin-vue-devtools/src/overlay/devtools-overlay.css";
 @use "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "daisyui";
@@ -13,7 +13,9 @@ label {
   @apply floating-label;
 }
 
-input:not([type="radio"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]) {
+input:not([type="radio"]):not([type="checkbox"]):not([type="radio"]):not(
+    [type="file"]
+  ) {
   @apply input input-primary;
 }
 

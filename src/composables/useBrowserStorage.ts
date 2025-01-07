@@ -32,7 +32,6 @@ function checkType(defaultValue: any, value: any): boolean {
     value === null
   )
 }
-
 function isObject(value: any): boolean {
   return value !== null && value instanceof Object && !Array.isArray(value)
 }
@@ -84,7 +83,6 @@ function useBrowserStorage<T>(
     },
     { deep: true, flush: "post" },
   )
-
   // Add the onChanged listener here
   chrome.storage[storageType].onChanged.addListener(async function (changes) {
     if (changes?.[key]) {
@@ -95,6 +93,5 @@ function useBrowserStorage<T>(
       isUpdatingFromStorage = false
     }
   })
-
   return { data, promise }
 }
