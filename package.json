@@ -65,8 +65,6 @@
     "dev": "npm run dev:chrome",
     "dev:chrome": "vite -c vite.chrome.config.ts",
     "format": "prettier --write .",
-    "launch": "tsx scripts/launch.ts",
-    "launch:all": "tsx scripts/launch.ts --all",
     "lint": "eslint . --fix --cache",
     "lint:manifest": "web-ext lint --pretty",
     "typecheck": "vue-tsc --noEmit"
