@@ -12,7 +12,7 @@ defineProps<{
     @click="router.back()"
   >
     <i-ph-arrow-left />
-    {{ label || 'Go Back' }}
+    {{ label || "Go Back" }}
   </button>
 </template>
 
