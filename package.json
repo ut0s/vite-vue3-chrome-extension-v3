@@ -64,7 +64,8 @@
     "build:chrome": "vite build -c vite.chrome.config.ts",
     "dev": "npm run dev:chrome",
     "dev:chrome": "vite -c vite.chrome.config.ts",
-    "format": "prettier --write .",
+    "format": "npm run lint ; npm run format:prettier ",
+    "format:prettier": "prettier --write .",
     "lint": "eslint . --fix --cache",
     "lint:manifest": "web-ext lint --pretty",
     "typecheck": "vue-tsc --noEmit"
