@@ -26,8 +26,10 @@ export default defineConfig({
   base: IS_DEV ? `/` : "",
 
   build: {
+    manifest: false,
     watch: IS_DEV ? {} : undefined,
     sourcemap: IS_DEV ? "inline" : false,
+    write: true,
     rollupOptions: {
       input: {
         setup: resolve(__dirname, "src/ui/setup/index.html"),
@@ -35,8 +37,13 @@ export default defineConfig({
         devtoolsPanel: resolve(__dirname, "src/ui/devtools-panel/index.html"),
       },
     },
+    minify: "terser",
     terserOptions: {
       mangle: false,
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
     },
   },
 
