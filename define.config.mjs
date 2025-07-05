@@ -27,7 +27,7 @@ const raw = {
 }
 
 const define = Object.fromEntries(
-  Object.entries(raw).map(([k, v]) => [`__${ k }__`, JSON.stringify(v)])
+  Object.entries(raw).map(([k, v]) => [`__${k}__`, JSON.stringify(v)]),
 )
 
 export { raw, define }

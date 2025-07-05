@@ -1,18 +1,18 @@
 /* eslint-disable no-empty */
-import { homedir } from 'os'
-import { resolve } from 'path'
-import { existsSync } from 'fs'
-import { execSync } from 'child_process'
+import { homedir } from "os"
+import { resolve } from "path"
+import { existsSync } from "fs"
+import { execSync } from "child_process"
 
 export interface BrowserPaths {
   name: string
-  type: 'chrome' | 'firefox' | 'safari' | 'other'
+  type: "chrome" | "firefox" | "safari" | "other"
   path: Record<NodeJS.Platform, string[]>
 }
 
 export interface BrowserPath {
   name: string
-  type: 'chrome' | 'firefox' | 'safari' | 'other'
+  type: "chrome" | "firefox" | "safari" | "other"
   path: string
 }
 
@@ -22,18 +22,18 @@ interface BrowserInfo {
   command: string
 }
 
-type BinaryType = 'flatpak' | 'snap' | 'native'
+type BinaryType = "flatpak" | "snap" | "native"
 
 const getWinPaths = (subdir: string) => {
-  const sysDrive = process.env['SystemDrive'] || 'C:'
+  const sysDrive = process.env["SystemDrive"] || "C:"
   const programFiles =
-    process.env['ProgramFiles'] || resolve(sysDrive, 'Program Files')
+    process.env["ProgramFiles"] || resolve(sysDrive, "Program Files")
   const programFilesX86 =
-    process.env['ProgramFiles(x86)'] || resolve(sysDrive, 'Program Files (x86)')
+    process.env["ProgramFiles(x86)"] || resolve(sysDrive, "Program Files (x86)")
   const localAppData =
-    process.env['LocalAppData'] || resolve(homedir(), 'AppData\\Local')
+    process.env["LocalAppData"] || resolve(homedir(), "AppData\\Local")
   const appData =
-    process.env['AppData'] || resolve(homedir(), 'AppData\\Roaming')
+    process.env["AppData"] || resolve(homedir(), "AppData\\Roaming")
   const knownPaths = [
     resolve(localAppData, subdir),
     resolve(appData, subdir),
@@ -46,8 +46,8 @@ const getWinPaths = (subdir: string) => {
 const getDarwinPaths = (subdir: string) => {
   const home = homedir()
   const knownPaths = [
-    resolve(home, 'Applications', subdir),
-    resolve('/Applications', subdir),
+    resolve(home, "Applications", subdir),
+    resolve("/Applications", subdir),
   ]
   return knownPaths
 }
@@ -65,39 +65,39 @@ const getLinuxPaths = (subdir: string) => {
 const checkBinaryType = (path: string): BinaryType => {
   const platform = process.platform
 
-  if (existsSync(path)) return 'native'
+  if (existsSync(path)) return "native"
 
-  if (platform === 'linux') {
+  if (platform === "linux") {
     try {
       const flatpakResult = execSync(`flatpak list --app | grep ${path}`)
         .toString()
         .trim()
 
-      if (flatpakResult) return 'flatpak'
+      if (flatpakResult) return "flatpak"
     } catch {}
 
     try {
       const snapResult = execSync(`snap list | grep ${path}`).toString().trim()
 
-      if (snapResult) return 'snap'
+      if (snapResult) return "snap"
     } catch {}
   }
 
-  return 'native'
+  return "native"
 }
 
 function getCommand(name: string, type: string, path: string) {
   const binaryType = checkBinaryType(path)
 
   switch (binaryType) {
-    case 'flatpak':
+    case "flatpak":
       return `flatpak run ${path} --no-input --browser-console --devtools`
 
-    case 'snap':
+    case "snap":
       return `snap run ${path} --no-input --browser-console --devtools`
 
-    case 'native':
-      if (type === 'chrome') {
+    case "native":
+      if (type === "chrome") {
         return `web-ext run --target chromium --chromium-binary ${path} --source-dir dist/chrome --no-input --browser-console --devtools`
       }
       break
@@ -146,215 +146,215 @@ const emptyPlatform = {
 }
 export const Browsers: BrowserPaths[] = [
   {
-    name: 'Arc',
-    type: 'chrome',
+    name: "Arc",
+    type: "chrome",
     path: {
       ...emptyPlatform,
-      darwin: getDarwinPaths('Arc.app/Contents/MacOS/Arc'),
+      darwin: getDarwinPaths("Arc.app/Contents/MacOS/Arc"),
     },
   },
   {
-    name: 'Brave',
-    type: 'chrome',
+    name: "Brave",
+    type: "chrome",
     path: {
       ...emptyPlatform,
       win32: getWinPaths(
-        'BraveSoftware\\Brave-Browser\\Application\\brave.exe'
+        "BraveSoftware\\Brave-Browser\\Application\\brave.exe",
       ),
-      darwin: getDarwinPaths('Brave Browser.app/Contents/MacOS/Brave Browser'),
+      darwin: getDarwinPaths("Brave Browser.app/Contents/MacOS/Brave Browser"),
       linux: [
-        ...getLinuxPaths('brave-browser'),
-        ...getLinuxPaths('com.brave.Browser'),
+        ...getLinuxPaths("brave-browser"),
+        ...getLinuxPaths("com.brave.Browser"),
       ],
     },
   },
   {
-    name: 'Chrome',
-    type: 'chrome',
+    name: "Chrome",
+    type: "chrome",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Google\\Chrome\\Application\\chrome.exe'),
-      darwin: getDarwinPaths('Google Chrome.app/Contents/MacOS/Google Chrome'),
+      win32: getWinPaths("Google\\Chrome\\Application\\chrome.exe"),
+      darwin: getDarwinPaths("Google Chrome.app/Contents/MacOS/Google Chrome"),
       linux: [
-        ...getLinuxPaths('google-chrome'),
-        ...getLinuxPaths('google-chrome-stable'),
+        ...getLinuxPaths("google-chrome"),
+        ...getLinuxPaths("google-chrome-stable"),
       ],
     },
   },
   {
-    name: 'Chrome Beta',
-    type: 'chrome',
+    name: "Chrome Beta",
+    type: "chrome",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Google\\Chrome Beta\\Application\\chrome.exe'),
+      win32: getWinPaths("Google\\Chrome Beta\\Application\\chrome.exe"),
       darwin: getDarwinPaths(
-        'Google Chrome Beta.app/Contents/MacOS/Google Chrome Beta'
+        "Google Chrome Beta.app/Contents/MacOS/Google Chrome Beta",
       ),
-      linux: [...getLinuxPaths('google-chrome-beta')],
+      linux: [...getLinuxPaths("google-chrome-beta")],
     },
   },
   {
-    name: 'Chrome Canary',
-    type: 'chrome',
+    name: "Chrome Canary",
+    type: "chrome",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Google\\Chrome Canary\\Application\\chrome.exe'),
+      win32: getWinPaths("Google\\Chrome Canary\\Application\\chrome.exe"),
       darwin: getDarwinPaths(
-        'Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary'
+        "Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary",
       ),
-      linux: [...getLinuxPaths('google-chrome-canary')],
+      linux: [...getLinuxPaths("google-chrome-canary")],
     },
   },
   {
-    name: 'Chromium',
-    type: 'chrome',
+    name: "Chromium",
+    type: "chrome",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Chromium\\Application\\chrome.exe'),
-      darwin: getDarwinPaths('Chromium.app/Contents/MacOS/Chromium'),
+      win32: getWinPaths("Chromium\\Application\\chrome.exe"),
+      darwin: getDarwinPaths("Chromium.app/Contents/MacOS/Chromium"),
       linux: [
-        ...getLinuxPaths('chromium'),
-        ...getLinuxPaths('org.chromium.Chromium'),
+        ...getLinuxPaths("chromium"),
+        ...getLinuxPaths("org.chromium.Chromium"),
       ],
     },
   },
   {
-    name: 'Edge',
-    type: 'chrome',
+    name: "Edge",
+    type: "chrome",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Microsoft\\Edge\\Application\\msedge.exe'),
+      win32: getWinPaths("Microsoft\\Edge\\Application\\msedge.exe"),
       darwin: getDarwinPaths(
-        'Microsoft Edge.app/Contents/MacOS/Microsoft Edge'
+        "Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
       ),
       linux: [
-        ...getLinuxPaths('microsoft-edge'),
-        ...getLinuxPaths('com.microsoft.Edge'),
+        ...getLinuxPaths("microsoft-edge"),
+        ...getLinuxPaths("com.microsoft.Edge"),
       ],
     },
   },
   {
-    name: 'Sidekick',
-    type: 'chrome',
+    name: "Sidekick",
+    type: "chrome",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Sidekick\\Application\\sidekick.exe'),
-      darwin: getDarwinPaths('Sidekick.app/Contents/MacOS/Sidekick'),
-      linux: [...getLinuxPaths('sidekick-browser-stable')],
+      win32: getWinPaths("Sidekick\\Application\\sidekick.exe"),
+      darwin: getDarwinPaths("Sidekick.app/Contents/MacOS/Sidekick"),
+      linux: [...getLinuxPaths("sidekick-browser-stable")],
     },
   },
   {
-    name: 'Vivaldi',
-    type: 'chrome',
+    name: "Vivaldi",
+    type: "chrome",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Vivaldi\\Application\\vivaldi.exe'),
-      darwin: getDarwinPaths('Vivaldi.app/Contents/MacOS/Vivaldi'),
+      win32: getWinPaths("Vivaldi\\Application\\vivaldi.exe"),
+      darwin: getDarwinPaths("Vivaldi.app/Contents/MacOS/Vivaldi"),
       linux: [
-        ...getLinuxPaths('vivaldi-stable'),
-        ...getLinuxPaths('com.vivaldi.Vivaldi'),
+        ...getLinuxPaths("vivaldi-stable"),
+        ...getLinuxPaths("com.vivaldi.Vivaldi"),
       ],
     },
   },
   {
-    name: 'Firefox',
-    type: 'firefox',
+    name: "Firefox",
+    type: "firefox",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Mozilla Firefox\\firefox.exe'),
-      darwin: getDarwinPaths('Firefox.app/Contents/MacOS/Firefox'),
+      win32: getWinPaths("Mozilla Firefox\\firefox.exe"),
+      darwin: getDarwinPaths("Firefox.app/Contents/MacOS/Firefox"),
       linux: [
-        ...getLinuxPaths('firefox'),
-        ...getLinuxPaths('org.mozilla.firefox'),
+        ...getLinuxPaths("firefox"),
+        ...getLinuxPaths("org.mozilla.firefox"),
       ],
     },
   },
   {
-    name: 'Firefox Nightly',
-    type: 'firefox',
+    name: "Firefox Nightly",
+    type: "firefox",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Firefox Nightly\\firefox.exe'),
-      darwin: getDarwinPaths('Firefox Nightly.app/Contents/MacOS/Firefox'),
+      win32: getWinPaths("Firefox Nightly\\firefox.exe"),
+      darwin: getDarwinPaths("Firefox Nightly.app/Contents/MacOS/Firefox"),
       linux: [
-        ...getLinuxPaths('firefox-nightly'),
-        ...getLinuxPaths('org.mozilla.firefox-nightly'),
+        ...getLinuxPaths("firefox-nightly"),
+        ...getLinuxPaths("org.mozilla.firefox-nightly"),
       ],
     },
   },
   {
-    name: 'Firefox Developer Edition',
-    type: 'firefox',
+    name: "Firefox Developer Edition",
+    type: "firefox",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Firefox Developer Edition\\firefox.exe'),
+      win32: getWinPaths("Firefox Developer Edition\\firefox.exe"),
       darwin: getDarwinPaths(
-        'Firefox Developer Edition.app/Contents/MacOS/Firefox'
+        "Firefox Developer Edition.app/Contents/MacOS/Firefox",
       ),
       linux: [
-        ...getLinuxPaths('firefox-dev'),
-        ...getLinuxPaths('org.mozilla.firefox.dev'),
+        ...getLinuxPaths("firefox-dev"),
+        ...getLinuxPaths("org.mozilla.firefox.dev"),
       ],
     },
   },
   {
-    name: 'Safari',
-    type: 'safari',
+    name: "Safari",
+    type: "safari",
     path: {
       ...emptyPlatform,
-      darwin: getDarwinPaths('Safari.app/Contents/MacOS/Safari'),
+      darwin: getDarwinPaths("Safari.app/Contents/MacOS/Safari"),
     },
   },
   {
-    name: 'Safari Technical Preview',
-    type: 'safari',
+    name: "Safari Technical Preview",
+    type: "safari",
     path: {
       ...emptyPlatform,
       darwin: getDarwinPaths(
-        'Safari Technical Preview.app/Contents/MacOS/Safari Technical Preview'
+        "Safari Technical Preview.app/Contents/MacOS/Safari Technical Preview",
       ),
     },
   },
   {
-    name: 'Safari beta',
-    type: 'safari',
+    name: "Safari beta",
+    type: "safari",
     path: {
       ...emptyPlatform,
-      darwin: getDarwinPaths('Safari beta.app/Contents/MacOS/Safari beta'),
+      darwin: getDarwinPaths("Safari beta.app/Contents/MacOS/Safari beta"),
     },
   },
   {
-    name: 'Orion',
-    type: 'safari',
+    name: "Orion",
+    type: "safari",
     path: {
       ...emptyPlatform,
-      darwin: getDarwinPaths('Orion.app/Contents/MacOS/Orion'),
+      darwin: getDarwinPaths("Orion.app/Contents/MacOS/Orion"),
     },
   },
   {
-    name: 'Epiphany',
-    type: 'safari',
+    name: "Epiphany",
+    type: "safari",
     path: {
       ...emptyPlatform,
-      linux: ['epiphany-browser', 'org.gnome.Epiphany'],
+      linux: ["epiphany-browser", "org.gnome.Epiphany"],
     },
   },
   {
-    name: 'Opera',
-    type: 'chrome',
+    name: "Opera",
+    type: "chrome",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Opera\\opera.exe'),
-      darwin: getDarwinPaths('Opera.app/Contents/MacOS/Opera'),
-      linux: [...getLinuxPaths('opera'), ...getLinuxPaths('opera-stable')],
+      win32: getWinPaths("Opera\\opera.exe"),
+      darwin: getDarwinPaths("Opera.app/Contents/MacOS/Opera"),
+      linux: [...getLinuxPaths("opera"), ...getLinuxPaths("opera-stable")],
     },
   },
   {
-    name: 'IE',
-    type: 'other',
+    name: "IE",
+    type: "other",
     path: {
       ...emptyPlatform,
-      win32: getWinPaths('Internet Explorer\\iexplore.exe'),
+      win32: getWinPaths("Internet Explorer\\iexplore.exe"),
     },
   },
 ]
