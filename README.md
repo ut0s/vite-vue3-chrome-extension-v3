@@ -62,20 +62,20 @@ The components will be automatically configured and ready to use in your Vue fil
 ## 🧩 Example: useBrowserStorage
 
 ```ts
-const { data: syncSettings, promise } = useBrowserSyncStorage('settings', {
-  theme: 'dark',
+const { data: syncSettings, promise } = useBrowserSyncStorage("settings", {
+  theme: "dark",
   notifications: true,
-  preferences: { language: 'en', fontSize: 14 }
+  preferences: { language: "en", fontSize: 14 },
 })
 
-const { data: userProfile } = useBrowserLocalStorage('profile', {
-  name: 'John Doe',
+const { data: userProfile } = useBrowserLocalStorage("profile", {
+  name: "John Doe",
   lastLogin: null,
-  favorites: ['item1', 'item2']
+  favorites: ["item1", "item2"],
 })
 
 console.log(syncSettings.value.theme) // 'dark'
-console.log(userProfile.value.name)   // 'John Doe'
+console.log(userProfile.value.name) // 'John Doe'
 ```
 
 ---
@@ -97,16 +97,20 @@ npx shadcn-vue@latest add button
 
 ```vue
 <template>
-  <Button variant="default" size="sm" @click="handleClick">
+  <Button
+    variant="default"
+    size="sm"
+    @click="handleClick"
+  >
     Click me
   </Button>
 </template>
 
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button"
 
 function handleClick() {
-  console.log('Button clicked!')
+  console.log("Button clicked!")
 }
 </script>
 ```

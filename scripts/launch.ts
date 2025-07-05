@@ -1,5 +1,3 @@
-
-
 import { exec } from "node:child_process"
 import { GetInstalledBrowsers } from "./getInstalledBrowsers"
 import concurrently, { type ConcurrentlyCommandInput } from "concurrently"
@@ -12,7 +10,7 @@ program
   .option(
     "-v, --vite-chrome-config <path>",
     "Path to Vite Chrome config",
-    "vite.chrome.config.ts"
+    "vite.chrome.config.ts",
   )
 
 program.parse(process.argv)

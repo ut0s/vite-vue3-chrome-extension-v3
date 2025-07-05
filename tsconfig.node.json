@@ -13,28 +13,12 @@
     "noEmit": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "~/*": [
-        "./*"
-      ],
-      "src/*": [
-        "./src/*"
-      ],
-      "@assets/*": [
-        "./src/assets/*"
-      ]
+      "@/*": ["./src/*"],
+      "~/*": ["./*"],
+      "src/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"]
     },
-    "types": [
-      "node",
-      "chrome-types",
-      "@intlify/unplugin-vue-i18n/messages"
-    ]
+    "types": ["node", "chrome-types", "@intlify/unplugin-vue-i18n/messages"]
   },
-  "include": [
-    "package.json",
-    "vite.config.ts",
-    "manifest.config.ts",
-  ]
+  "include": ["package.json", "vite.config.ts", "manifest.config.ts"]
 }
